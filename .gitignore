@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+.env.*
+.vscode/
+.ipynb_checkpoints/
+.pytest_cache/
+# raw data is downloaded by kagglehub, never committed
+data/
+*.csv

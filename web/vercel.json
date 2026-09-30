@@ -1,0 +1,6 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "headers": [
+    { "source": "/trees.json", "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600" }] }
+  ]
+}

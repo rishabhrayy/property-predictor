@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en-AU">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Melbourne Property Price Predictor - Rishabh Ray</title>
+    <meta name="description" content="Estimate a Melbourne sale price with an 80% range. XGBoost trained on 27,000 real sales, tested on future ones, running entirely in your browser." />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%233f4520'/><path d='M14 34 32 18l18 16v14H14z' fill='%23f7a23a'/></svg>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="wrap">
+      <header>
+        <p class="eyebrow">Melbourne, 2016-2018 sales</p>
+        <h1>What would it sell for?</h1>
+        <p class="lede">
+          An XGBoost model trained on real Melbourne sales, tested only on sales it never saw. It gives a range, not
+          just a number, and tells you how it compares to the plain suburb median.
+        </p>
+      </header>
+
+      <div class="grid">
+        <form id="form" class="card" novalidate>
+          <label class="field">
+            <span>Suburb</span>
+            <input id="suburb" list="suburbs" autocomplete="off" placeholder="Start typing, e.g. Brunswick" required />
+            <datalist id="suburbs"></datalist>
+            <small class="err" id="suburb-err" hidden>Pick a suburb from the list - the model only knows these.</small>
+          </label>
+
+          <fieldset class="field">
+            <legend>Type</legend>
+            <div class="seg" role="radiogroup">
+              <label><input type="radio" name="type" value="h" checked /><span>House</span></label>
+              <label><input type="radio" name="type" value="t" /><span>Townhouse</span></label>
+              <label><input type="radio" name="type" value="u" /><span>Unit</span></label>
+            </div>
+          </fieldset>
+
+          <div class="row3">
+            <label class="field"><span>Bedrooms</span><input id="rooms" type="number" min="1" max="10" value="3" /></label>
+            <label class="field"><span>Bathrooms</span><input id="bath" type="number" min="1" max="8" value="1" /></label>
+            <label class="field"><span>Car spaces</span><input id="car" type="number" min="0" max="10" value="1" /></label>
+          </div>
+
+          <details>
+            <summary>More detail (optional)</summary>
+            <div class="row3">
+              <label class="field"><span>Land m²</span><input id="land" type="number" min="1" max="20000" placeholder="auto" /></label>
+              <label class="field"><span>Building m²</span><input id="building" type="number" min="20" max="1500" placeholder="auto" /></label>
+              <label class="field"><span>Year built</span><input id="year" type="number" min="1840" max="2018" placeholder="auto" /></label>
+            </div>
+            <small class="hint">Left blank, these fall back to the typical value from the training data - the same thing the model saw when a listing left them out.</small>
+          </details>
+
+          <button type="submit" class="btn">Estimate</button>
+        </form>
+
+        <section class="card result" id="result" aria-live="polite">
+          <p class="empty" id="empty">Pick a suburb and press Estimate.</p>
+          <div id="out" hidden>
+            <p class="k">Estimated sale price</p>
+            <p class="price" id="price"></p>
+            <p class="range">80% range <strong id="range"></strong></p>
+            <div class="bar" aria-hidden="true"><span id="bar-range"></span><i id="bar-point"></i><b id="bar-base"></b></div>
+            <p class="legend" aria-hidden="true"><i></i> estimate <b></b> typical for the suburb <span></span> 80% range</p>
+            <p class="vs" id="vs"></p>
+            <p class="note">Prices in early-2018 dollars. A model trained on public sales data, not a valuation.</p>
+          </div>
+        </section>
+      </div>
+
+      <section class="card how">
+        <h2>How good is it?</h2>
+        <p>Trained on sales up to October 2017, then tested on <span id="test-period"></span> - later sales the model had never seen.</p>
+        <table>
+          <thead><tr><th></th><th>Median error</th><th>Within 10%</th><th>Average $ error</th></tr></thead>
+          <tbody>
+            <tr><td>Suburb + type median</td><td id="b-med"></td><td id="b-10"></td><td id="b-mae"></td></tr>
+            <tr class="hl"><td>This model</td><td id="m-med"></td><td id="m-10"></td><td id="m-mae"></td></tr>
+          </tbody>
+        </table>
+        <p class="small">The 80% range held the real price for <strong id="cov"></strong> of those future sales. Everything runs in your browser: the trees are exported to JSON and scored in plain JavaScript, checked against Python in the test suite.</p>
+        <p class="small links">
+          <a href="https://github.com/rishabhrayy/property-predictor">Code and write-up</a> ·
+          <a href="https://rishabhray.vercel.app">rishabhray.vercel.app</a> ·
+          Data: <a href="https://www.kaggle.com/datasets/anthonypino/melbourne-housing-market">Melbourne Housing Market</a> by Tony Pino, CC BY-NC-SA 4.0
+        </p>
+      </section>
+    </main>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
