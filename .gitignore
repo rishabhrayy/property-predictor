@@ -8,5 +8,5 @@ venv/
 .ipynb_checkpoints/
 .pytest_cache/
 # raw data is downloaded by kagglehub, never committed
-data/
+/data/
 *.csv
