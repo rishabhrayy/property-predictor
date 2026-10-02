@@ -17,7 +17,7 @@
       "has": [
         {
           "type": "host",
-          "value": "property.rishabhray.me"
+          "value": "rishabhray-property.vercel.app"
         }
       ],
       "destination": "https://property.rishabhray.me/",
@@ -28,7 +28,7 @@
       "has": [
         {
           "type": "host",
-          "value": "property.rishabhray.me"
+          "value": "rishabhray-property.vercel.app"
         }
       ],
       "destination": "https://property.rishabhray.me/:path+",
