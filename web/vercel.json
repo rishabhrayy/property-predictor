@@ -1,6 +1,38 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "headers": [
-    { "source": "/trees.json", "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600" }] }
+    {
+      "source": "/trees.json",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "rishabhray-property.vercel.app"
+        }
+      ],
+      "destination": "https://property.rishabhray.me/",
+      "permanent": true
+    },
+    {
+      "source": "/:path+",
+      "has": [
+        {
+          "type": "host",
+          "value": "rishabhray-property.vercel.app"
+        }
+      ],
+      "destination": "https://property.rishabhray.me/:path+",
+      "permanent": true
+    }
   ]
 }
