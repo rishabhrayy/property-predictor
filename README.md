@@ -2,7 +2,7 @@
 
 Estimate what a Melbourne property would sell for, with an honest 80% price range, from the details a buyer actually knows: suburb, type, bedrooms, bathrooms, car spaces and, optionally, land size, building size and year built.
 
-**[Try the live demo](https://rishabhray-property.vercel.app)** - it runs entirely in your browser, no server involved.
+**[Try the live demo](https://property.rishabhray.me)** - it runs entirely in your browser, no server involved.
 
 ![What drives the prediction](reports/feature_importance.png)
 
